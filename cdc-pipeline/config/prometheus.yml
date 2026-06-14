@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['localhost:9187']  # postgres_exporter
+
+  - job_name: 'kafka'
+    static_configs:
+      - targets: ['localhost:7071']  # kafka JMX exporter
+
+  - job_name: 'cdc-consumer'
+    static_configs:
+      - targets: ['localhost:8000']  # CDC consumer metrics endpoint

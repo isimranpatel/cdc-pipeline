@@ -1,0 +1,41 @@
+{
+  "name": "postgres-cdc-connector",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "replicator",
+    "database.password": "replicator_pass",
+    "database.dbname": "sourcedb",
+    "database.server.name": "cdc",
+
+    "plugin.name": "pgoutput",
+    "publication.name": "cdc_publication",
+    "slot.name": "debezium_slot",
+
+    "table.include.list": "public.orders,public.customers",
+    "column.exclude.list": "",
+
+    "topic.prefix": "cdc",
+    "topic.creation.enable": "true",
+
+    "key.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "key.converter.schemas.enable": "true",
+    "value.converter.schemas.enable": "true",
+
+    "heartbeat.interval.ms": "10000",
+    "snapshot.mode": "initial",
+
+    "decimal.handling.mode": "double",
+    "time.precision.mode": "connect",
+
+    "errors.tolerance": "all",
+    "errors.deadletterqueue.topic.name": "cdc.dead.letter",
+    "errors.deadletterqueue.context.headers.enable": "true",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true"
+  }
+}
